@@ -10,8 +10,12 @@ exclude = [
   '^https://(www\.)?linkedin\.com/.*',
   '^https://(www\.)?x\.com/.*',
   '^https://(www\.)?twitter\.com/.*',
-  # Asset URLs that may not exist until pre-launch checklist is done.
-  '^https://siamrahman29\.github\.io/projects/.*\.pdf$',
+  # Skip external HTTP checks against our own domain. Local file links are
+  # already validated by --root-dir on the dist scan; checking the
+  # self-domain over the network on every push is a chicken-and-egg trap
+  # (the build that publishes the site is the same build that would have
+  # tried to fetch the not-yet-published URLs).
+  '^https://siamrahman29\.github\.io',
   # External marketing sites we don't own (placeholders).
   '^https://askturing\.ai/?$',
   '^https://grab\.com/?$',
