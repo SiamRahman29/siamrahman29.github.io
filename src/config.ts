@@ -1,7 +1,7 @@
 export const SITE = {
   title: 'Siam Rahman',
   description:
-    'Siam Rahman — AI Infrastructure / Backend Engineer. Production RAG systems, MLOps, distributed workflows. Currently at AskTuring.ai.',
+    'Siam Rahman — AI Infrastructure / Backend Engineer. Production RAG systems, MLOps, distributed workflows. Previously at AskTuring.ai and Grab. Looking for what is next.',
   url: 'https://siamrahman29.github.io',
   author: 'Siam Rahman',
   defaultOgImage: '/og/default.png',
@@ -34,11 +34,11 @@ export const EXPERIENCE: ReadonlyArray<{
   {
     company: 'AskTuring.ai',
     role: 'Full Stack Engineer',
-    period: 'Feb 2025 – Present',
+    period: 'Feb 2025 – May 2026',
     location: 'California, United States (remote)',
     href: 'https://askturing.ai',
     bullets: [
-      'Leading a cross-functional epic to enhance email ingestion and retrieval in a production RAG architecture.',
+      'Led a cross-functional epic that enhanced email ingestion and retrieval in a production RAG architecture.',
       'Redesigned the file upload and ingestion pipeline, raising reliability from 70% to 99.95%+ with Dramatiq-based distributed workflows, retries, and reconciler workers.',
       'Implemented end-to-end observability with the LGTM stack (Loki, Grafana, Tempo, Mimir) for real-time monitoring and faster incident response.',
     ],

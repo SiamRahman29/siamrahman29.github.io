@@ -4,7 +4,7 @@ slug: "asketuring-reliability"
 summary: "Redesigned a production RAG file ingestion pipeline from 70% to 99.95%+ success rate using Dramatiq-based distributed workflows with retries and reconciler workers."
 role: "Full Stack Engineer · AskTuring.ai"
 tech: ["Python", "Dramatiq", "Azure", "Docker", "LangChain", "CrewAI", "LGTM Stack"]
-period: "Feb 2025 – Present"
+period: "Feb 2025 – May 2026"
 featured: true
 order: 1
 ogImage: "/og/asketuring-reliability.png"
@@ -26,7 +26,7 @@ The redesign pulled three levers at the same time.
 
 ## The result
 
-Success rate moved from ~70% to 99.95%+. Customer complaints about "missing files" dropped to near-zero. Fault tolerance is now a property of the system, not an aspiration.
+Success rate moved from ~70% to 99.95%+. Customer complaints about "missing files" dropped to near-zero. Fault tolerance became a property of the system, not an aspiration.
 
 ## What I'd do differently
 
