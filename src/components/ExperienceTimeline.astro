@@ -1,0 +1,58 @@
+---
+import { EXPERIENCE } from '~/config';
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section id="experience" class="container-wide py-12 sm:py-16 scroll-mt-20">
+  <SectionHeading number="01" title="Experience" />
+
+  <ol class="space-y-12">
+    {
+      EXPERIENCE.map((job) => (
+        <li class="grid gap-4 sm:grid-cols-[180px_1fr] sm:gap-8">
+          <div class="font-mono text-xs uppercase tracking-wider text-[var(--color-text-dim)] sm:pt-1">
+            {job.period}
+          </div>
+
+          <div>
+            <h3 class="text-base font-medium text-[var(--color-text)]">
+              {job.role}
+              {' · '}
+              {job.href ? (
+                <a
+                  href={job.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-[var(--color-accent)] hover:underline underline-offset-4"
+                >
+                  {job.company}
+                </a>
+              ) : (
+                <span class="text-[var(--color-accent)]">{job.company}</span>
+              )}
+            </h3>
+
+            <p class="mt-1 text-xs text-[var(--color-text-dim)]">{job.location}</p>
+
+            <ul class="mt-4 space-y-2 text-sm leading-relaxed text-[var(--color-text-muted)]">
+              {job.bullets.map((b) => (
+                <li class="flex gap-3">
+                  <span class="select-none text-[var(--color-accent)]">▹</span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+
+            <ul class="mt-4 flex flex-wrap gap-1.5">
+              {job.tech.map((t) => (
+                <li class="rounded border border-[var(--color-border)] bg-[var(--color-bg-elevated)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[var(--color-text-muted)]">
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>

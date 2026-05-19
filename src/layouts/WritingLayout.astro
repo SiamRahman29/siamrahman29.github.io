@@ -1,0 +1,63 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'writing'>;
+}
+const { post } = Astro.props;
+const { title, summary, date, draft, tags, ogImage } = post.data;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={title} description={summary} ogImage={ogImage} noIndex={draft}>
+  <article class="container-prose pt-12 pb-16 sm:pt-20">
+    <a
+      href="/writing"
+      class="font-mono text-xs text-[var(--color-text-muted)] hover:text-[var(--color-accent)]"
+      >← All writing</a
+    >
+
+    <header class="mt-6 mb-10 border-b border-[var(--color-border)] pb-8">
+      <p class="font-mono text-xs uppercase tracking-wider text-[var(--color-text-dim)]">
+        <time datetime={date.toISOString()}>{fmt(date)}</time>
+        {
+          draft && (
+            <span class="ml-3 rounded bg-[var(--color-bg-elevated)] px-1.5 py-0.5 text-[10px] text-[var(--color-accent)]">
+              DRAFT
+            </span>
+          )
+        }
+      </p>
+      <h1
+        class="mt-3 text-balance text-3xl font-semibold tracking-tight text-[var(--color-text)] sm:text-4xl"
+      >
+        {title}
+      </h1>
+      {
+        summary && (
+          <p class="mt-4 text-pretty text-base leading-relaxed text-[var(--color-text-muted)]">
+            {summary}
+          </p>
+        )
+      }
+      {
+        tags.length > 0 && (
+          <ul class="mt-5 flex flex-wrap gap-1.5">
+            {tags.map((t) => (
+              <li class="rounded border border-[var(--color-border)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[var(--color-text-muted)]">
+                {t}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <div class="prose-custom">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

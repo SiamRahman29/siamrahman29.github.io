@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHeading from './SectionHeading.astro';
+
+const isProd = import.meta.env.PROD;
+const posts = (
+  await getCollection('writing', ({ data }) => (isProd ? !data.draft : true))
+)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<section class="container-wide py-12 sm:py-16">
+  <SectionHeading number="03" title="Writing" href="/writing" hrefLabel="All posts" />
+
+  {
+    posts.length === 0 ? (
+      <p class="text-sm text-[var(--color-text-muted)]">
+        First post coming soon. Working on it.
+      </p>
+    ) : (
+      <ul class="divide-y divide-[var(--color-border)]">
+        {posts.map((post) => (
+          <li>
+            <a
+              href={`/writing/${post.id}`}
+              class="group grid gap-2 py-4 sm:grid-cols-[140px_1fr] sm:gap-6"
+            >
+              <time
+                datetime={post.data.date.toISOString()}
+                class="font-mono text-xs uppercase tracking-wider text-[var(--color-text-dim)]"
+              >
+                {fmt(post.data.date)}
+                {post.data.draft && (
+                  <span class="ml-2 rounded bg-[var(--color-bg-elevated)] px-1.5 py-0.5 text-[10px] text-[var(--color-accent)]">
+                    DRAFT
+                  </span>
+                )}
+              </time>
+              <div>
+                <h3 class="text-base font-medium text-[var(--color-text)] transition-colors group-hover:text-[var(--color-accent)]">
+                  {post.data.title}
+                </h3>
+                <p class="mt-1 text-sm text-[var(--color-text-muted)]">
+                  {post.data.summary}
+                </p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</section>

@@ -1,0 +1,76 @@
+---
+import { SITE } from '~/config';
+---
+
+<section class="container-wide pt-20 pb-16 sm:pt-28 sm:pb-24">
+  <div class="anim-fade-in-up flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
+    <span class="relative inline-flex h-2 w-2">
+      <span
+        class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-accent)] opacity-60"
+      ></span>
+      <span
+        class="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-accent)]"
+      ></span>
+    </span>
+    <span class="font-mono uppercase tracking-wider">Open to opportunities</span>
+  </div>
+
+  <h1
+    class="anim-fade-in-up mt-6 text-balance text-4xl font-semibold leading-tight tracking-tight text-[var(--color-text)] sm:text-5xl md:text-6xl"
+    style="animation-delay: 80ms"
+  >
+    Hi, I'm <span class="text-[var(--color-accent)]">Siam</span>.<br />
+    I build production AI infrastructure.
+  </h1>
+
+  <p
+    class="anim-fade-in-up mt-6 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-text-muted)] sm:text-lg"
+    style="animation-delay: 160ms"
+  >
+    Currently a Full Stack Engineer at <a
+      href="https://askturing.ai"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-[var(--color-text)] underline decoration-[var(--color-border-strong)] underline-offset-4 hover:text-[var(--color-accent)] hover:decoration-[var(--color-accent)]"
+      >AskTuring.ai</a
+    >, where I redesigned a RAG ingestion pipeline from <strong
+      class="font-mono text-[var(--color-text)]">70%</strong
+    > to <strong class="font-mono text-[var(--color-accent)]">99.95%+</strong> reliability.
+    Previously MLOps at Grab, supporting 100+ data scientists.
+  </p>
+
+  <p
+    class="anim-fade-in-up mt-5 max-w-2xl font-mono text-xs text-[var(--color-text-dim)] sm:text-sm"
+    style="animation-delay: 240ms"
+  >
+    Python · Go · LangChain · LGTM · Dramatiq · Kubernetes · Azure · AWS
+  </p>
+
+  <div
+    class="anim-fade-in-up mt-10 flex flex-wrap items-center gap-3 text-sm"
+    style="animation-delay: 320ms"
+  >
+    <a
+      href={SITE.bookingUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="rounded-md border border-[var(--color-accent)] bg-[var(--color-accent)] px-4 py-2 font-medium text-[var(--color-bg)] transition-opacity hover:opacity-90 hover:text-[var(--color-bg)]"
+    >
+      Book a 15-min call →
+    </a>
+    <a
+      href={`mailto:${SITE.email}`}
+      class="rounded-md border border-[var(--color-border-strong)] px-4 py-2 text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+    >
+      Email
+    </a>
+    <a
+      href={SITE.resumeUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="rounded-md border border-[var(--color-border-strong)] px-4 py-2 text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+    >
+      Résumé (PDF)
+    </a>
+  </div>
+</section>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404" description="Page not found." noIndex>
+  <section class="container-prose flex min-h-[60vh] flex-col items-start justify-center py-16">
+    <p class="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)]">
+      Error 404
+    </p>
+    <h1 class="mt-3 text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+      Page not found.
+    </h1>
+    <p class="mt-4 max-w-xl text-pretty leading-relaxed text-[var(--color-text-muted)]">
+      The page you're looking for doesn't exist, or has moved. Want to go back
+      to the start, or browse what's here?
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3 text-sm">
+      <a
+        href="/"
+        class="rounded-md border border-[var(--color-accent)] bg-[var(--color-accent)] px-4 py-2 font-medium text-[var(--color-bg)] transition-opacity hover:opacity-90"
+        >Go home</a
+      >
+      <a
+        href="/projects"
+        class="rounded-md border border-[var(--color-border-strong)] px-4 py-2 text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+        >Projects</a
+      >
+      <a
+        href="/writing"
+        class="rounded-md border border-[var(--color-border-strong)] px-4 py-2 text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+        >Writing</a
+      >
+    </div>
+  </section>
+</BaseLayout>

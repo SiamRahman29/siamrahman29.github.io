@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import ProjectCard from '~/components/ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Projects" description="Selected work by Siam Rahman.">
+  <section class="container-wide pt-12 pb-16 sm:pt-20">
+    <header class="mb-12 max-w-2xl">
+      <p class="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)]">
+        Projects
+      </p>
+      <h1 class="mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+        Selected work
+      </h1>
+      <p class="mt-4 text-pretty leading-relaxed text-[var(--color-text-muted)]">
+        Production engineering, research, and side projects. Case studies for the
+        items I can talk about in detail; live links and source where applicable.
+      </p>
+    </header>
+
+    <div class="grid gap-5 sm:grid-cols-2">
+      {projects.map((p) => <ProjectCard project={p} />)}
+    </div>
+  </section>
+</BaseLayout>

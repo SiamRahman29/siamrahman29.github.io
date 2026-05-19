@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+import SectionHeading from './SectionHeading.astro';
+
+const projects = (await getCollection('projects', ({ data }) => data.featured)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section class="container-wide py-12 sm:py-16">
+  <SectionHeading
+    number="02"
+    title="Featured projects"
+    href="/projects"
+    hrefLabel="All projects"
+  />
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    {projects.map((project) => <ProjectCard project={project} />)}
+  </div>
+</section>

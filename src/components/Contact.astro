@@ -1,0 +1,43 @@
+---
+import { SITE } from '~/config';
+import SectionHeading from './SectionHeading.astro';
+
+const emailParts = SITE.email.split('@');
+---
+
+<section class="container-wide py-12 sm:py-20">
+  <SectionHeading number="04" title="Get in touch" />
+
+  <div class="grid gap-8 sm:grid-cols-[1fr_auto] sm:items-end">
+    <div class="max-w-xl">
+      <p class="text-lg leading-relaxed text-[var(--color-text)] text-pretty">
+        I'm open to AI infrastructure, backend, and full-stack roles. If you're
+        hiring, building something interesting, or just want to compare notes on
+        RAG reliability, I'd love to talk.
+      </p>
+
+      <p class="mt-4 text-sm text-[var(--color-text-muted)]">
+        Book a 15-min intro call or send an email. Both reach me.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-3 sm:items-end">
+      <a
+        href={SITE.bookingUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center rounded-md border border-[var(--color-accent)] bg-[var(--color-accent)] px-5 py-2.5 font-medium text-[var(--color-bg)] transition-opacity hover:opacity-90"
+      >
+        Book a 15-min call →
+      </a>
+      <a
+        href={`mailto:${SITE.email}`}
+        class="font-mono text-sm text-[var(--color-text-muted)] hover:text-[var(--color-accent)]"
+        data-user={emailParts[0]}
+        data-domain={emailParts[1]}
+      >
+        {emailParts[0]}<span class="text-[var(--color-text-dim)]">[at]</span>{emailParts[1]}
+      </a>
+    </div>
+  </div>
+</section>

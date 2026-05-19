@@ -1,0 +1,43 @@
+---
+import { SITE } from '~/config';
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-[var(--color-border)]">
+  <div class="container-wide py-10 text-sm text-[var(--color-text-muted)]">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p class="font-mono text-[var(--color-text)]">{SITE.author}</p>
+        <p class="mt-1">AI Infrastructure · Backend · Full Stack</p>
+      </div>
+
+      <ul class="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <li>
+          <a href={SITE.socials.github} target="_blank" rel="noopener noreferrer"
+            >GitHub</a
+          >
+        </li>
+        <li>
+          <a href={SITE.socials.linkedin} target="_blank" rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+        </li>
+        <li>
+          <a href={SITE.socials.x} target="_blank" rel="noopener noreferrer">X</a>
+        </li>
+        <li>
+          <a href={SITE.resumeUrl} target="_blank" rel="noopener noreferrer">Resume</a>
+        </li>
+      </ul>
+    </div>
+
+    <p class="mt-8 text-xs text-[var(--color-text-dim)]">
+      © {year} {SITE.author}. Built with Astro and Tailwind. <a
+        href="https://github.com/SiamRahman29/siamrahman29.github.io"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="underline-offset-2 hover:underline">Source.</a
+      >
+    </p>
+  </div>
+</footer>

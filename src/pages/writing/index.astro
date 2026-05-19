@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+
+const isProd = import.meta.env.PROD;
+const posts = (
+  await getCollection('writing', ({ data }) => (isProd ? !data.draft : true))
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<BaseLayout
+  title="Writing"
+  description="Notes from production AI infrastructure work."
+>
+  <section class="container-wide pt-12 pb-16 sm:pt-20">
+    <header class="mb-12 max-w-2xl">
+      <p class="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)]">
+        Writing
+      </p>
+      <h1 class="mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+        Notes from the trenches
+      </h1>
+      <p class="mt-4 text-pretty leading-relaxed text-[var(--color-text-muted)]">
+        Posts on reliability, observability, MLOps, and the boring decisions
+        that turn 99% into 99.95%.
+      </p>
+    </header>
+
+    {
+      posts.length === 0 ? (
+        <p class="text-sm text-[var(--color-text-muted)]">No posts yet.</p>
+      ) : (
+        <ul class="divide-y divide-[var(--color-border)]">
+          {posts.map((post) => (
+            <li>
+              <a
+                href={`/writing/${post.id}`}
+                class="group grid gap-2 py-5 sm:grid-cols-[140px_1fr] sm:gap-6"
+              >
+                <time
+                  datetime={post.data.date.toISOString()}
+                  class="font-mono text-xs uppercase tracking-wider text-[var(--color-text-dim)]"
+                >
+                  {fmt(post.data.date)}
+                  {post.data.draft && (
+                    <span class="ml-2 rounded bg-[var(--color-bg-elevated)] px-1.5 py-0.5 text-[10px] text-[var(--color-accent)]">
+                      DRAFT
+                    </span>
+                  )}
+                </time>
+                <div>
+                  <h2 class="text-base font-medium text-[var(--color-text)] transition-colors group-hover:text-[var(--color-accent)]">
+                    {post.data.title}
+                  </h2>
+                  <p class="mt-1 text-sm text-[var(--color-text-muted)]">
+                    {post.data.summary}
+                  </p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</BaseLayout>
