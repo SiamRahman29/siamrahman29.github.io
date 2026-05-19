@@ -43,7 +43,7 @@ jobs:
       - name: Link check (lychee)
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --exclude-mail --exclude-loopback --exclude "https://askturing.ai" --exclude "https://grab.com" ./dist
+          args: --config lychee.toml ./dist
           fail: true
 
       - name: Lighthouse CI
