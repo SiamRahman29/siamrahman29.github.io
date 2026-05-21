@@ -1,0 +1,210 @@
+---
+/** Decorative F1 car — physics wander (playful mascot-style movement). */
+---
+
+<div id="f1-car" class="f1-car" aria-hidden="true" hidden>
+  <img
+    src="/f1-car.png"
+    alt=""
+    width="64"
+    height="43"
+    class="f1-car__img"
+    decoding="async"
+    draggable="false"
+  />
+</div>
+
+<style>
+  .f1-car {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 60;
+    pointer-events: none;
+    will-change: transform;
+    opacity: 0.92;
+    filter: drop-shadow(0 2px 8px rgba(74, 222, 128, 0.25));
+  }
+
+  .f1-car__img {
+    display: block;
+    width: 64px;
+    height: auto;
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .f1-car {
+      display: none !important;
+    }
+  }
+
+  @media print {
+    .f1-car {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .f1-car__img {
+      width: 48px;
+    }
+  }
+</style>
+
+<script>
+  function initF1Car() {
+    const car = document.getElementById('f1-car');
+    if (!car || car.dataset.running === 'true') return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    car.dataset.running = 'true';
+    car.hidden = false;
+
+    const PAD = 36;
+    const MAX_SPEED = 0.14;
+    const MIN_SPEED = 0.018;
+    const FRICTION = 0.988;
+    const STEER = 0.00045;
+    const WANDER_TURN = 0.055;
+    const ROT_LERP = 0.1;
+    const IDLE_CHANCE = 0.00035;
+
+    let x = 0;
+    let y = 0;
+    let vx = 0;
+    let vy = 0;
+    let angle = 0;
+    let wanderAngle = Math.random() * Math.PI * 2;
+    let idleUntil = 0;
+    let last = performance.now();
+
+    function bounds() {
+      return {
+        minX: PAD,
+        minY: PAD,
+        maxX: window.innerWidth - PAD,
+        maxY: window.innerHeight - PAD,
+      };
+    }
+
+    function clamp(v: number, lo: number, hi: number) {
+      return Math.max(lo, Math.min(hi, v));
+    }
+
+    function lerpAngle(current: number, target: number, t: number) {
+      let diff = ((target - current + 540) % 360) - 180;
+      return current + diff * t;
+    }
+
+    function spawn() {
+      const { minX, minY, maxX, maxY } = bounds();
+      x = minX + Math.random() * (maxX - minX);
+      y = minY + Math.random() * (maxY - minY);
+      wanderAngle = Math.random() * Math.PI * 2;
+      const speed = MIN_SPEED + Math.random() * 0.04;
+      vx = Math.cos(wanderAngle) * speed;
+      vy = Math.sin(wanderAngle) * speed;
+      angle = (wanderAngle * 180) / Math.PI;
+    }
+
+    spawn();
+
+    function tick(now: number) {
+      const dt = Math.min(now - last, 48);
+      last = now;
+
+      const { minX, minY, maxX, maxY } = bounds();
+      const w = maxX - minX;
+      const h = maxY - minY;
+
+      if (now < idleUntil) {
+        vx *= 0.92;
+        vy *= 0.92;
+      } else {
+        wanderAngle += (Math.random() - 0.5) * WANDER_TURN;
+
+        const lookAhead = 48;
+        const wx = x + Math.cos(wanderAngle) * lookAhead;
+        const wy = y + Math.sin(wanderAngle) * lookAhead;
+        const toWx = wx - x;
+        const toWy = wy - y;
+        const wLen = Math.hypot(toWx, toWy) || 1;
+        vx += (toWx / wLen) * STEER * dt;
+        vy += (toWy / wLen) * STEER * dt;
+
+        if (Math.random() < 0.004) {
+          wanderAngle = Math.atan2(
+            minY + Math.random() * h - y,
+            minX + Math.random() * w - x,
+          );
+        }
+
+        const edge = 72;
+        const pushX =
+          (x < minX + edge ? 1 : 0) +
+          (x > maxX - edge ? -1 : 0);
+        const pushY =
+          (y < minY + edge ? 1 : 0) +
+          (y > maxY - edge ? -1 : 0);
+        if (pushX || pushY) {
+          const pl = Math.hypot(pushX, pushY) || 1;
+          vx += (pushX / pl) * STEER * 2.2 * dt;
+          vy += (pushY / pl) * STEER * 2.2 * dt;
+        }
+
+        if (Math.random() < IDLE_CHANCE) {
+          idleUntil = now + 1200 + Math.random() * 2200;
+        }
+      }
+
+      vx *= FRICTION;
+      vy *= FRICTION;
+
+      let speed = Math.hypot(vx, vy);
+      if (speed < MIN_SPEED && now >= idleUntil) {
+        const boost = MIN_SPEED + Math.random() * 0.03;
+        vx += Math.cos(wanderAngle) * boost * 0.35;
+        vy += Math.sin(wanderAngle) * boost * 0.35;
+        speed = Math.hypot(vx, vy);
+      }
+      if (speed > MAX_SPEED) {
+        vx = (vx / speed) * MAX_SPEED;
+        vy = (vy / speed) * MAX_SPEED;
+        speed = MAX_SPEED;
+      }
+
+      x += vx * dt;
+      y += vy * dt;
+      x = clamp(x, minX, maxX);
+      y = clamp(y, minY, maxY);
+
+      if (speed > 0.008) {
+        const target = (Math.atan2(vy, vx) * 180) / Math.PI;
+        angle = lerpAngle(angle, target, ROT_LERP);
+      }
+
+      const bob = speed > 0.02 ? Math.sin(now * 0.014) * 1.5 : 0;
+      const lean =
+        speed > 0.02
+          ? clamp(((vx * Math.sin((angle * Math.PI) / 180) - vy * Math.cos((angle * Math.PI) / 180)) / speed) * 4, -6, 6)
+          : 0;
+      const scale = 1 + (speed / MAX_SPEED) * 0.04;
+
+      car.style.transform = `translate(${x}px, ${y + bob}px) translate(-50%, -50%) rotate(${angle + lean}deg) scale(${scale})`;
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+
+    window.addEventListener('resize', () => {
+      const { minX, minY, maxX, maxY } = bounds();
+      x = clamp(x, minX, maxX);
+      y = clamp(y, minY, maxY);
+    });
+  }
+
+  initF1Car();
+  document.addEventListener('astro:page-load', initF1Car);
+</script>

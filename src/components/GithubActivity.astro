@@ -1,0 +1,177 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { SITE } from '~/config';
+
+const username = 'SiamRahman29';
+
+interface ContributionDay {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+}
+
+interface ContributionData {
+  total: Record<string, number> & { lastYear: number };
+  contributions: ContributionDay[];
+}
+
+let contributions: ContributionDay[] = [];
+let totalLastYear = 0;
+let fetchFailed = false;
+
+try {
+  const res = await fetch(
+    `https://github-contributions-api.jogruber.de/v4/${username}?y=last`,
+    { signal: AbortSignal.timeout(8000) },
+  );
+  if (res.ok) {
+    const data: ContributionData = await res.json();
+    contributions = data.contributions ?? [];
+    totalLastYear = data.total?.lastYear ?? 0;
+  } else {
+    fetchFailed = true;
+  }
+} catch {
+  fetchFailed = true;
+}
+
+type DayOrNull = ContributionDay | null;
+
+// Group daily entries into week columns (Sun → Sat)
+const weeks: DayOrNull[][] = [];
+let currentWeek: DayOrNull[] = [];
+
+if (contributions.length > 0) {
+  // Pad the first week so it starts on Sunday
+  const firstDayIndex = new Date(contributions[0].date + 'T00:00:00').getDay();
+  for (let i = 0; i < firstDayIndex; i++) currentWeek.push(null);
+}
+
+for (const day of contributions) {
+  currentWeek.push(day);
+  if (new Date(day.date + 'T00:00:00').getDay() === 6) {
+    weeks.push(currentWeek);
+    currentWeek = [];
+  }
+}
+if (currentWeek.length > 0) {
+  while (currentWeek.length < 7) currentWeek.push(null);
+  weeks.push(currentWeek);
+}
+
+// Build month label positions
+interface MonthLabel { label: string; weekIndex: number }
+const monthLabels: MonthLabel[] = [];
+let lastMonth = -1;
+weeks.forEach((week, wi) => {
+  const first = week.find(Boolean) as ContributionDay | undefined;
+  if (first) {
+    const d = new Date(first.date + 'T00:00:00');
+    const m = d.getMonth();
+    if (m !== lastMonth) {
+      monthLabels.push({ label: d.toLocaleString('en-US', { month: 'short' }), weekIndex: wi });
+      lastMonth = m;
+    }
+  }
+});
+
+// Level → fill colour (dark bg → bright accent)
+const LEVEL_FILL = [
+  '#1a1a1a',  // 0 – empty
+  '#14532d',  // 1 – faint
+  '#166534',  // 2 – low
+  '#16a34a',  // 3 – medium
+  '#4ade80',  // 4 – high
+];
+
+// Day labels (align with Sun=0 … Sat=6 rows)
+const DAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
+
+// Cell size + gap in px (used inline so Tailwind purge doesn't strip)
+const CELL = 12;
+const GAP = 3;
+const ROW_H = CELL + GAP;
+---
+
+{!fetchFailed && contributions.length > 0 && (
+  <section class="container-wide py-12 sm:py-16">
+    <SectionHeading
+      number="02"
+      title="GitHub Activity"
+      href={SITE.socials.github}
+      hrefLabel="View profile"
+    />
+
+    <p class="mb-6 font-mono text-xs text-[var(--color-text-dim)]">
+      <span class="text-[var(--color-accent)] font-medium">{totalLastYear.toLocaleString()}</span>
+      {' '}contributions in the last year
+    </p>
+
+    <div class="overflow-x-auto pb-2 -mx-1 px-1">
+      <div class="inline-flex flex-col gap-0">
+
+        <!-- Month labels row -->
+        <div class="flex mb-1" style={`padding-left: ${DAY_LABELS[1].length > 0 ? 32 : 0}px`}>
+          <div style={`width: 32px; flex-shrink: 0`}></div>
+          <div class="relative flex" style={`height: 14px`}>
+            {monthLabels.map(({ label, weekIndex }) => (
+              <span
+                class="absolute font-mono text-[10px] text-[var(--color-text-dim)] leading-none"
+                style={`left: ${weekIndex * (CELL + GAP)}px`}
+              >
+                {label}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <!-- Day labels + grid -->
+        <div class="flex gap-0">
+          <!-- Day-of-week labels -->
+          <div
+            class="flex flex-col flex-shrink-0 items-end pr-2 font-mono text-[10px] text-[var(--color-text-dim)]"
+          >
+            {DAY_LABELS.map((label) => (
+              <div style={`height: ${ROW_H}px; line-height: ${ROW_H}px`}>
+                {label}
+              </div>
+            ))}
+          </div>
+
+          <!-- Week columns -->
+          <div class="flex" style={`gap: ${GAP}px`}>
+            {weeks.map((week) => (
+              <div class="flex flex-col" style={`gap: ${GAP}px`}>
+                {week.map((day) => (
+                  <div
+                    class="rounded-[2px] transition-opacity hover:opacity-80"
+                    style={`
+                      width: ${CELL}px;
+                      height: ${CELL}px;
+                      background: ${day ? LEVEL_FILL[day.level] : '#111111'};
+                      opacity: ${day === null ? '0.25' : '1'};
+                    `}
+                    title={day ? `${day.date}: ${day.count} contribution${day.count !== 1 ? 's' : ''}` : ''}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="mt-4 flex items-center gap-2 justify-end">
+          <span class="font-mono text-[10px] text-[var(--color-text-dim)]">Less</span>
+          {LEVEL_FILL.map((fill) => (
+            <div
+              class="rounded-[2px]"
+              style={`width: ${CELL}px; height: ${CELL}px; background: ${fill};`}
+            />
+          ))}
+          <span class="font-mono text-[10px] text-[var(--color-text-dim)]">More</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+)}
