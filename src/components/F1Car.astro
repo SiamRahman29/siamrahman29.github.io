@@ -54,8 +54,9 @@
 
 <script>
   function initF1Car() {
-    const car = document.getElementById('f1-car');
-    if (!car || car.dataset.running === 'true') return;
+    const el = document.getElementById('f1-car');
+    if (!(el instanceof HTMLElement) || el.dataset.running === 'true') return;
+    const car = el;
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
