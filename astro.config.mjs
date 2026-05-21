@@ -10,9 +10,6 @@ export default defineConfig({
   trailingSlash: 'ignore',
   integrations: [mdx(), sitemap()],
   vite: {
-    // @ts-expect-error — Astro and Tailwind ship slightly different Vite
-    // versions; the plugin works fine at runtime but the type identities
-    // don't unify. Drop this once both pin to the same Vite major.
     plugins: [tailwindcss()],
   },
   prefetch: {
