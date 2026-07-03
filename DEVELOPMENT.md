@@ -63,11 +63,11 @@ Pushes to `main` trigger `.github/workflows/deploy.yml`:
 - [ ] Update `bookingUrl` in `src/config.ts` with your actual Cal.com link
 - [ ] Design OG images (1200x630 PNG) for each project + the site default. Save to `/public/og/`
       - `/public/og/default.png` (site-wide fallback)
-      - `/public/og/asketuring-reliability.png`
+      - `/public/og/askturing-reliability.png`
       - `/public/og/grab-mlops.png`
       - `/public/og/july-revolution.png`
       - `/public/og/opportunity-octopus.png`
       - `/public/og/writing-dramatiq-reliability.png` (when ready to publish)
-- [ ] Replace `src/content/writing/asketuring-dramatiq-reliability.md` with the finished post, then set `draft: false`
+- [ ] Replace `src/content/writing/askturing-dramatiq-reliability.md` with the finished post, then set `draft: false`
 - [ ] Export July Revolution slides to PDF, save to `/public/projects/july-revolution-slides.pdf`
 - [ ] Verify all external links work (`npm run build` then visit a few)

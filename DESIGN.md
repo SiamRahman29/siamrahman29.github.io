@@ -52,7 +52,7 @@ One-page home + dedicated detail pages for case studies + /writing pages. About 
 /                                       Home (hero, experience, featured projects, writing teaser, contact)
 /about                                  Longer about, education, achievements, skills
 /projects/                              Index page with all projects
-/projects/asketuring-reliability        Case study
+/projects/askturing-reliability        Case study
 /projects/grab-mlops                    Case study
 /projects/july-revolution               Case study + slides embed
 /projects/opportunity-octopus           Case study + live demo link
