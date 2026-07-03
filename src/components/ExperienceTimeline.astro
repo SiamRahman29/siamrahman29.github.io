@@ -1,6 +1,15 @@
 ---
 import { EXPERIENCE } from '~/config';
 import SectionHeading from './SectionHeading.astro';
+
+// Split a bullet into plain and highlighted (**...**) segments.
+function segments(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part) =>
+    part.startsWith('**') && part.endsWith('**')
+      ? { text: part.slice(2, -2), mark: true }
+      : { text: part, mark: false }
+  );
+}
 ---
 
 <section id="experience" class="container-wide py-12 sm:py-16 scroll-mt-20">
@@ -38,7 +47,15 @@ import SectionHeading from './SectionHeading.astro';
               {job.bullets.map((b) => (
                 <li class="flex gap-3">
                   <span class="select-none text-[var(--color-accent)]">▹</span>
-                  <span>{b}</span>
+                  <span>
+                    {segments(b).map((seg) =>
+                      seg.mark ? (
+                        <strong class="font-semibold text-[var(--color-text)]">{seg.text}</strong>
+                      ) : (
+                        seg.text
+                      )
+                    )}
+                  </span>
                 </li>
               ))}
             </ul>
