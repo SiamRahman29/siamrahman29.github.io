@@ -1,0 +1,356 @@
+---
+/**
+ * Site cat — oneko sprite sheet with a custom brain.
+ * Peeks in from the right edge on load, wanders the viewport,
+ * pounces around to play, and falls asleep when the user goes idle.
+ */
+---
+
+<div id="page-cat" aria-hidden="true" hidden></div>
+
+<style>
+  #page-cat {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    z-index: 60;
+    pointer-events: none;
+    background-image: url('/oneko.gif');
+    image-rendering: pixelated;
+    will-change: transform;
+  }
+
+  @media print, (prefers-reduced-motion: reduce) {
+    #page-cat {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  function initPageCat() {
+    const el = document.getElementById('page-cat');
+    if (!(el instanceof HTMLElement) || el.dataset.running === 'true') return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const cat = el;
+    cat.dataset.running = 'true';
+    cat.hidden = false;
+
+    const HALF = 16;
+    const TICK_MS = 100;
+    const WALK_SPEED = 10;
+    const POUNCE_SPEED = 18;
+    const PEEK_SPEED = 4;
+    const PAD = 24;
+    const SLEEP_AFTER_MS = 10000;
+
+    // [col, row] cells on the 8x4 oneko sprite sheet.
+    const SPRITES: Record<string, Array<[number, number]>> = {
+      idle: [[-3, -3]],
+      alert: [[-7, -3]],
+      tired: [[-3, -2]],
+      sleeping: [
+        [-2, 0],
+        [-2, -1],
+      ],
+      scratchSelf: [
+        [-5, 0],
+        [-6, 0],
+        [-7, 0],
+      ],
+      scratchWallN: [
+        [0, 0],
+        [0, -1],
+      ],
+      scratchWallS: [
+        [-7, -1],
+        [-6, -2],
+      ],
+      scratchWallE: [
+        [-2, -2],
+        [-2, -3],
+      ],
+      scratchWallW: [
+        [-4, 0],
+        [-4, -1],
+      ],
+      N: [
+        [-1, -2],
+        [-1, -3],
+      ],
+      NE: [
+        [0, -2],
+        [0, -3],
+      ],
+      E: [
+        [-3, 0],
+        [-3, -1],
+      ],
+      SE: [
+        [-5, -1],
+        [-5, -2],
+      ],
+      S: [
+        [-6, -3],
+        [-7, -2],
+      ],
+      SW: [
+        [-5, -3],
+        [-6, -1],
+      ],
+      W: [
+        [-4, -2],
+        [-4, -3],
+      ],
+      NW: [
+        [-1, 0],
+        [-1, -1],
+      ],
+    };
+
+    type State =
+      | 'peek'
+      | 'peek-hold'
+      | 'walk'
+      | 'idle'
+      | 'groom'
+      | 'pounce-crouch'
+      | 'pounce'
+      | 'tired'
+      | 'sleep'
+      | 'wake';
+
+    let state: State = 'peek';
+    let stateTicks = 0;
+    let frame = 0;
+    let hop = 0;
+
+    // Viewport size excluding scrollbars, so the cat never hides under them.
+    const vw = () => document.documentElement.clientWidth;
+    const vh = () => document.documentElement.clientHeight;
+
+    let x = vw() + HALF;
+    let y = Math.max(PAD, Math.min(vh() - PAD, vh() * (0.25 + Math.random() * 0.45)));
+    let targetX = x;
+    let targetY = y;
+    let pounceFromX = 0;
+    let pounceFromY = 0;
+    let pouncesLeft = 0;
+    let idleFor = 0;
+    let groomSprite = 'scratchSelf';
+
+    let lastActivity = performance.now();
+    const bump = () => {
+      lastActivity = performance.now();
+    };
+    window.addEventListener('mousemove', bump, { passive: true });
+    window.addEventListener('mousedown', bump, { passive: true });
+    window.addEventListener('keydown', bump, { passive: true });
+    window.addEventListener('scroll', bump, { passive: true });
+    window.addEventListener('touchstart', bump, { passive: true });
+
+    function clamp(v: number, lo: number, hi: number) {
+      return Math.max(lo, Math.min(hi, v));
+    }
+
+    function setSprite(name: string, f: number) {
+      const frames = SPRITES[name];
+      const sprite = frames[f % frames.length];
+      cat.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
+    }
+
+    function render() {
+      cat.style.transform = `translate(${Math.round(x - HALF)}px, ${Math.round(y - HALF + hop)}px)`;
+    }
+
+    function enter(next: State) {
+      state = next;
+      stateTicks = 0;
+    }
+
+    function pickTarget(maxDist?: number) {
+      const minX = PAD;
+      const minY = PAD;
+      const maxX = vw() - PAD;
+      const maxY = vh() - PAD;
+      if (maxDist) {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = maxDist * (0.5 + Math.random() * 0.5);
+        targetX = clamp(x + Math.cos(angle) * dist, minX, maxX);
+        targetY = clamp(y + Math.sin(angle) * dist, minY, maxY);
+      } else {
+        targetX = minX + Math.random() * (maxX - minX);
+        targetY = minY + Math.random() * (maxY - minY);
+      }
+    }
+
+    /** Move toward target; returns true when arrived. Sets the walk sprite. */
+    function stepToward(speed: number) {
+      const dx = targetX - x;
+      const dy = targetY - y;
+      const dist = Math.hypot(dx, dy);
+      if (dist <= speed) {
+        x = targetX;
+        y = targetY;
+        return true;
+      }
+      let dir = '';
+      if (dy / dist > 0.5) dir += 'S';
+      else if (dy / dist < -0.5) dir += 'N';
+      if (dx / dist > 0.5) dir += 'E';
+      else if (dx / dist < -0.5) dir += 'W';
+      setSprite(dir || 'idle', frame);
+      x += (dx / dist) * speed;
+      y += (dy / dist) * speed;
+      return false;
+    }
+
+    /** Pick what to do after arriving somewhere or finishing a rest. */
+    function chooseNext() {
+      const roll = Math.random();
+      if (roll < 0.3) {
+        pouncesLeft = 2 + Math.floor(Math.random() * 3);
+        enter('pounce-crouch');
+      } else if (roll < 0.75) {
+        idleFor = 20 + Math.floor(Math.random() * 40);
+        enter('idle');
+      } else {
+        pickTarget();
+        enter('walk');
+      }
+    }
+
+    function nearEdgeScratch(): string | null {
+      if (x < PAD + 12) return 'scratchWallW';
+      if (x > vw() - PAD - 12) return 'scratchWallE';
+      if (y < PAD + 12) return 'scratchWallN';
+      if (y > vh() - PAD - 12) return 'scratchWallS';
+      return null;
+    }
+
+    function tick(now: number) {
+      frame++;
+      stateTicks++;
+      hop = 0;
+
+      const userIdle = now - lastActivity > SLEEP_AFTER_MS;
+      const asleep = state === 'tired' || state === 'sleep';
+      const arriving = state === 'peek' || state === 'peek-hold';
+      if (userIdle && !asleep && !arriving) {
+        enter('tired');
+      } else if (!userIdle && asleep) {
+        enter('wake');
+      }
+
+      switch (state) {
+        case 'peek': {
+          // Slide in from beyond the right edge until most of the cat shows.
+          setSprite('W', frame);
+          x -= PEEK_SPEED;
+          if (x <= vw() - 12) enter('peek-hold');
+          break;
+        }
+        case 'peek-hold': {
+          // Look around, startled, then commit to coming in.
+          setSprite(stateTicks < 8 ? 'alert' : 'idle', 0);
+          if (stateTicks >= 14) {
+            pickTarget();
+            enter('walk');
+          }
+          break;
+        }
+        case 'walk': {
+          if (stepToward(WALK_SPEED)) chooseNext();
+          break;
+        }
+        case 'idle': {
+          setSprite('idle', 0);
+          // Sometimes groom or scratch a nearby wall mid-rest.
+          if (stateTicks > 8 && Math.random() < 0.03) {
+            groomSprite = nearEdgeScratch() ?? 'scratchSelf';
+            enter('groom');
+            break;
+          }
+          if (stateTicks >= idleFor) chooseNext();
+          break;
+        }
+        case 'groom': {
+          setSprite(groomSprite, frame);
+          if (stateTicks >= 10) {
+            idleFor = 10 + Math.floor(Math.random() * 20);
+            enter('idle');
+          }
+          break;
+        }
+        case 'pounce-crouch': {
+          setSprite('tired', 0);
+          if (stateTicks >= 3) {
+            pounceFromX = x;
+            pounceFromY = y;
+            pickTarget(140);
+            enter('pounce');
+          }
+          break;
+        }
+        case 'pounce': {
+          const total = Math.hypot(targetX - pounceFromX, targetY - pounceFromY) || 1;
+          const done = stepToward(POUNCE_SPEED);
+          const covered = Math.hypot(x - pounceFromX, y - pounceFromY);
+          hop = -Math.sin(Math.min(covered / total, 1) * Math.PI) * 14;
+          if (done) {
+            hop = 0;
+            pouncesLeft--;
+            if (pouncesLeft > 0) enter('pounce-crouch');
+            else chooseNext();
+          }
+          break;
+        }
+        case 'tired': {
+          setSprite('tired', 0);
+          if (stateTicks >= 10) enter('sleep');
+          break;
+        }
+        case 'sleep': {
+          setSprite('sleeping', Math.floor(frame / 4));
+          break;
+        }
+        case 'wake': {
+          setSprite('alert', 0);
+          if (stateTicks >= 6) {
+            idleFor = 10 + Math.floor(Math.random() * 20);
+            enter('idle');
+          }
+          break;
+        }
+      }
+
+      render();
+    }
+
+    let last = 0;
+    function loop(now: number) {
+      if (now - last >= TICK_MS) {
+        last = now;
+        tick(now);
+      }
+      requestAnimationFrame(loop);
+    }
+
+    setSprite('W', 0);
+    render();
+    requestAnimationFrame(loop);
+
+    window.addEventListener('resize', () => {
+      x = clamp(x, PAD, vw() + HALF);
+      y = clamp(y, PAD, vh() - PAD);
+      targetX = clamp(targetX, PAD, vw() - PAD);
+      targetY = clamp(targetY, PAD, vh() - PAD);
+    });
+  }
+
+  initPageCat();
+  document.addEventListener('astro:page-load', initPageCat);
+</script>

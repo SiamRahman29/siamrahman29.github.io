@@ -15,8 +15,8 @@ export const SITE = {
   resumeUrl: '/siam-rahman-resume.pdf',
 } as const;
 
-/** Set to true to show the wandering F1 car mascot site-wide. */
-export const F1_CAR_ENABLED = false;
+/** Set to true to show the wandering pixel cat site-wide. */
+export const CAT_ENABLED = true;
 
 export const NAV: ReadonlyArray<{ label: string; href: string }> = [
   { label: 'Work', href: '/#experience' },
