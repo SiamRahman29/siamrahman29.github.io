@@ -10,6 +10,8 @@ order: 4
 ogImage: "/og/opportunity-octopus.png"
 ---
 
+![Opportunity Octopus](/public/og/opportunity-octopus.png)
+
 ## What it does
 
 Opportunity Octopus centralizes opportunities (internships, scholarships, programs, competitions) that are otherwise scattered across dozens of sources. The UI is dynamic enough to browse and filter the catalog without round-tripping for every interaction. The target audience is students and early-career professionals who don't have time to scrape ten different sites every week.
