@@ -10,7 +10,7 @@ links:
     href: "https://siamrahman29.github.io/projects/july-revolution-slides.pdf"
 featured: true
 order: 4
-ogImage: "/og/july-revolution.png"
+ogImage: "/og/default.png"
 ---
 
 <iframe

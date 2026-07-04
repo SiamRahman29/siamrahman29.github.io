@@ -19,6 +19,13 @@ exclude = [
   # External marketing sites we don't own (placeholders).
   '^https://askturing\.ai/?$',
   '^https://grab\.com/?$',
+  # Private source repos. These exist but 404 to an anonymous checker, so
+  # skip them rather than fail the build. Remove a line if a repo goes public.
+  '^https://github\.com/SiamRahman29/Rico/?$',
+  '^https://github\.com/SiamRahman29/Top-Words-Backend/?$',
+  '^https://github\.com/SiamRahman29/Top-Words-Frontend/?$',
+  '^https://github\.com/SiamRahman29/vento-backend/?$',
+  '^https://github\.com/SiamRahman29/vento-frontend/?$',
 ]
 
 # Accept these status codes as OK. Several services intermittently rate-limit.

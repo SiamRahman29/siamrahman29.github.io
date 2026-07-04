@@ -7,10 +7,10 @@ tech: ["Python", "Dramatiq", "Azure", "Docker", "LangChain", "CrewAI", "LGTM Sta
 period: "Feb 2025 – May 2026"
 featured: true
 order: 1
-ogImage: "public/og/askturing-reliability.jpg"
+ogImage: "/og/askturing-reliability.jpg"
 ---
 
-![Hero image](public/og/askturing-reliability.jpg)
+![Hero image](/og/askturing-reliability.jpg)
 
 AskTuring AI is a RAG based AI application. We enabled users to create knowledge bases. Users can upload files and images to this knowledge, which we would ingest for our RAG pipeline. This, in turn, allowed users to chat with their whole knowledge base at once.
 

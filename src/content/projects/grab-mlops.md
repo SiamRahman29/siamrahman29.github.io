@@ -7,10 +7,10 @@ tech: ["Go", "Python", "Kubernetes", "AWS", "MLflow", "OIDC", "LDAP"]
 period: "Aug 2024 – Feb 2025"
 featured: true
 order: 2
-ogImage: "/public/og/grab-mlops.jpg"
+ogImage: "/og/grab-mlops.jpg"
 ---
 
-![What's Grab without a Car](/public/og/grab-mlops.jpg)
+![What's Grab without a Car](/og/grab-mlops.jpg)
 
 I completed a six-month long internship at Grab Holdings Inc. in Malaysia during my final year of university. I was a full stack engineering intern at Grab's data technology team. This team was eventually reorganized into Grab's AI Core team. I worked alongside very talented ML and AI engineers during my internship. Our goal was to build, maintain and improve all tech infrastructure used by our AI/data teams. 
 

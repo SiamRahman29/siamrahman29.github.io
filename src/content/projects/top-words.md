@@ -14,10 +14,10 @@ links:
     href: "https://github.com/SiamRahman29/Top-Words-Backend"
 featured: true
 order: 6
-ogImage: "/public/og/top-words-home.png"
+ogImage: "/og/top-words-home.png"
 ---
 
-![Top Words Dashboard](/public/og/top-words-home.png)
+![Top Words Dashboard](/og/top-words-home.png)
 
 ## What it does
 
@@ -25,7 +25,7 @@ Top Words answers the question: *what words are trending in Bengali right now?* 
 
 I built it in collaboration with the **International Mother Language Institute (IMLI)** and the **BARTA lab**, which is what pushed it from a scraping toy toward something that has to be correct for a language most off-the-shelf NLP tooling treats as an afterthought. It is currently being used by the **International Mother Language Institute**. 
 
-![Top Words Trending Page](/public/og/trending-words.png)
+![Top Words Trending Page](/og/trending-words.png)
 
 ## How it works
 
@@ -41,4 +41,4 @@ I built it in collaboration with the **International Mother Language Institute (
 
 Most trending-word systems assume English. Bengali morphology, tokenization, and the scarcity of clean sources make the same problem meaningfully harder, and doing it *for* the institute chartered to steward the language raised the bar on getting the linguistics right rather than just shipping a word cloud. The result is a genuinely full-stack system: scraping, NLP, scoring, storage, API, and a real UI on top.
 
-![Top Words Generate Words Page](/public/og/generate-words.png)
+![Top Words Generate Words Page](/og/generate-words.png)

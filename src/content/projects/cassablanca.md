@@ -9,10 +9,10 @@ links:
   - label: "Source"
     href: "https://github.com/SiamRahman29/OnlineMarketplace-Cassablanca"
 order: 9
-ogImage: "/public/og/cassablanca.png/"
+ogImage: "/og/cassablanca.png"
 ---
 
-![Cassablanca](/public/og/cassablanca.png)
+![Cassablanca](/og/cassablanca.png)
 
 ## What it does
 

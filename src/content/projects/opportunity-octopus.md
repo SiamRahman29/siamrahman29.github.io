@@ -10,7 +10,7 @@ order: 4
 ogImage: "/og/opportunity-octopus.png"
 ---
 
-![Opportunity Octopus](/public/og/opportunity-octopus.png)
+![Opportunity Octopus](/og/opportunity-octopus.png)
 
 ## What it does
 
