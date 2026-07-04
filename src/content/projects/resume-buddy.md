@@ -1,5 +1,5 @@
 ---
-title: "Resume Buddy — AI LaTeX Resume Workshop"
+title: "Resume Buddy"
 slug: "resume-buddy"
 summary: "A Claude Code plugin that turns resume editing into a conversation. It bundles a local LaTeX MCP server so the AI can create, edit, validate, and compile your resume as a real .tex file — no LaTeX knowledge required."
 role: "Solo build"
@@ -8,7 +8,7 @@ period: "Jun 2026"
 links:
   - label: "Source"
     href: "https://github.com/SiamRahman29/resume-buddy"
-order: 8
+order: 3
 ---
 
 ## What it does
