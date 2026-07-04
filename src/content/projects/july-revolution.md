@@ -23,7 +23,7 @@ ogImage: "/og/july-revolution.png"
 
 ## What this is
 
-A research project examining how media narratives shifted during and after Bangladesh's July Revolution. The dataset is, the largest collection of news articles on the topic. The analysis covers temporal patterns: how language changed week to week, how different newspapers diverged in framing, and where mainstream coverage parted ways with social media.
+A research project examining how media narratives shifted during and after Bangladesh's July Revolution. The dataset is the largest collection of news articles on the topic. The analysis covers temporal patterns: how language changed week to week, how different newspapers diverged in framing, and where mainstream coverage parted ways with social media.
 
 ## What's in the dataset
 
