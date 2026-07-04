@@ -1,9 +1,9 @@
 ---
-title: "Vento — Inventory & Manufacturing System"
+title: "Vento: Inventory & Manufacturing Management System"
 slug: "vento"
-summary: "A full-stack inventory and manufacturing system: raw materials, products with recipes, manufacturing runs with history, and a role-aware admin panel. FastAPI + PostgreSQL backend, React + TypeScript frontend."
+summary: "A full-stack inventory and manufacturing management system: raw materials, products with recipes, manufacturing runs with history, and a role-aware admin panel. FastAPI + PostgreSQL backend, React + TypeScript frontend."
 role: "Solo build"
-tech: ["Python", "FastAPI", "PostgreSQL", "Alembic", "React", "TypeScript", "Tailwind CSS", "Docker"]
+tech: ["Python", "FastAPI", "PostgreSQL", "React", "TypeScript", "Tailwind CSS", "Docker"]
 period: "May 2026 – Present"
 links:
   - label: "Backend source"
