@@ -21,21 +21,21 @@ ogImage: "/public/og/top-words-home.png"
 
 ## What it does
 
-Top Words answers the question: *what words are trending in Bengali right now?* It scrapes Bengali news and social sources, runs them through a Bengali-aware NLP pipeline, and surfaces trending single words and multi-word phrases — date by date, so you can explore how language shifts over time.
+Top Words answers the question: *what words are trending in Bengali right now?* It scrapes Bengali news and social sources, runs them through a Bengali-aware NLP pipeline, and surfaces trending single words and multi-word phrases, date by date, so you can explore how language shifts over time.
 
-Built in collaboration with the **International Mother Language Institute (IMLI)** and the **BARTA lab**, which is what pushed it from a scraping toy toward something that has to be correct for a language most off-the-shelf NLP tooling treats as an afterthought. It is currently being used by the **International Mother Language Institute**. 
+I built it in collaboration with the **International Mother Language Institute (IMLI)** and the **BARTA lab**, which is what pushed it from a scraping toy toward something that has to be correct for a language most off-the-shelf NLP tooling treats as an afterthought. It is currently being used by the **International Mother Language Institute**. 
 
 ![Top Words Trending Page](/public/og/trending-words.png)
 
 ## How it works
 
-**Multi-source ingestion.** Bengali news via RSS and NewsData.io, plus Selenium-based social scraping (gated off by default for safety — it degrades to info messages rather than errors when disabled).
+**Multi-source ingestion.** Bengali news via RSS and NewsData.io, plus Selenium-based social scraping (gated off by default for safety, so it degrades to info messages rather than errors when disabled).
 
 **Bengali NLP.** Cleaning, tokenization, and stop-word removal tuned for Bengali, supporting both single words and phrases.
 
 **Trend detection.** N-gram frequency and TF-IDF feed a multi-factor scoring algorithm that ranks candidates, with an LLM step (via Groq) for AI-assisted candidate generation. Results are stored date-wise so historical trends are first-class, not an afterthought.
 
-**API-first.** A FastAPI + SQLAlchemy backend with Alembic migrations exposes REST endpoints (`generate_candidates`, `trending-phrases`, word-of-the-day), consumed by a responsive React + Material UI frontend with Bengali-friendly typography.
+**API-first.** A FastAPI and SQLAlchemy backend with Alembic migrations exposes REST endpoints (`generate_candidates`, `trending-phrases`, word-of-the-day), consumed by a responsive React and Material UI frontend with Bengali-friendly typography.
 
 ## Why it's interesting
 
