@@ -15,10 +15,10 @@ order: 12
 
 ## What it does
 
-Salt Experiment recreates the salt-identification labs from the high school chemistry syllabus in the browser. You choose a salt and run the standard qualitative tests against it; the simulation responds with the reactions you'd see in a real lab — colour changes, precipitates, gas evolution — so a student can work through the identification logic without a physical bench.
+Salt Experiment recreates the salt-identification labs from the Bangladeshi high school chemistry syllabus in the browser. You choose a salt and run the standard qualitative tests against it; the simulation responds with the reactions you'd see in a real lab, colour changes, precipitates, gas evolution, so a student can work through the identification logic without a physical bench.
 
 ## Why it exists
 
-Wet chemistry labs are gated by access: reagents, safety supervision, lab time, and often just not having a lab at all. Most of the *learning* in a salt-test lab, though, isn't the physical technique — it's the deductive chain. *This test gave this result, which rules these out, so the next test should be…* That reasoning doesn't need real reagents; it needs faithful feedback and unlimited retries.
+Only a handful of high schools in Bangladesh have proper chemistry labs. Even if they do, proper reagents, safety supervision, or lab time is often absent. Most of the *learning* in a salt-test lab, though, isn't the physical technique; it's the deductive chain. *This test gave this result, which rules these out, so the next test should be…* That reasoning doesn't need real reagents; it needs faithful feedback and unlimited retries.
 
-Simulating it means a student can fail, backtrack, and try a different test order as many times as they want, which is exactly what a real lab's constraints discourage. It's a small tool with a clear audience — students preparing for exactly this curriculum — running entirely client-side and hosted for free on GitHub Pages.
+Simulating it means a student can fail, backtrack, and try a different test order as many times as they want, which is exactly what a real lab's constraints discourage. It's running entirely client-side and hosted for free on GitHub Pages.
