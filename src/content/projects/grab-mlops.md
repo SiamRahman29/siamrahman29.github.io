@@ -1,7 +1,7 @@
 ---
 title: "MLOps Platform Work at Grab"
 slug: "grab-mlops"
-summary: "Fixed a critical MLflow access control bug, deployed OIDC-based auth with LDAP group access, and built a central API gateway serving 100+ data scientists."
+summary: "Fixed a critical MLflow access control bug, deployed OIDC-based auth with LDAP group access, and built endpoints for a central API gateway serving 100+ data scientists."
 role: "Full Stack Engineer, Internship · MyTeksi Sdn Bhd (Grab)"
 tech: ["Go", "Python", "Kubernetes", "AWS", "MLflow", "OIDC", "LDAP"]
 period: "Aug 2024 – Feb 2025"

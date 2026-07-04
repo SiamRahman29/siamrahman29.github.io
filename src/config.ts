@@ -57,7 +57,7 @@ export const EXPERIENCE: ReadonlyArray<{
       'Fixed a **critical MLflow access control bug**, eliminating daily manual password resets for **150+ data scientists** and engineers.',
       'Built MLOps tools with the AI Infrastructure team, supporting **100+ data scientists** across Grab.',
       'Deployed **OIDC-based authentication** with LDAP group access for MLflow, streamlining experiment tracking and service integration.',
-      'Developed a **central API gateway** and feature-serving endpoints for refreshed data in ML pipelines.',
+      'Built endpoints for a **central API gateway** and feature-serving tool delivering refreshed data to ML pipelines.',
     ],
     tech: ['Go', 'Python', 'Kubernetes', 'AWS', 'MLflow', 'OIDC'],
   },
