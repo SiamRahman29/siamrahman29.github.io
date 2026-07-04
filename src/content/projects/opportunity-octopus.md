@@ -19,8 +19,8 @@ Opportunity Octopus centralizes opportunities (internships, scholarships, progra
 ## How it's built
 
 - **Django** for the application and admin layer.
-- **Tailwind CSS** for styling. Built before Tailwind v4, so the original setup uses the PostCSS plugin.
-- **SQLite** for storage. The dataset isn't large enough to need anything heavier; SQLite means zero ops cost.
+- **Tailwind CSS** for styling. I built this before Tailwind v4, so the original setup uses the PostCSS plugin.
+- **SQLite** for storage. The dataset isn't large enough to need anything heavier, and SQLite means zero ops cost.
 - **Docker** to make the deployment reproducible.
 - **AWS EC2** as the host.
 
@@ -28,4 +28,4 @@ Opportunity Octopus centralizes opportunities (internships, scholarships, progra
 
 I noticed I was personally losing opportunities to "I forgot to check that site this month." If I was losing them, my classmates were too. So I built it.
 
-The full-stack range here is the point: data model, admin UX, server-side rendering, styling, container build, cloud deploy. End-to-end ownership of a small product, which is the muscle that matters for whatever you build next.
+The full-stack range here is the point: data model, admin UX, server-side rendering, styling, container build, cloud deploy. It's end-to-end ownership of a small product, which is the muscle that matters for whatever you build next.

@@ -23,8 +23,8 @@ order: 99
 
 ## Design intent
 
-The aesthetic anchors on dark minimalist (Kroszborg-school): geometric sans for body, monospace for technical accents, generous whitespace, restrained color (a single accent for status and links on hover).
+The aesthetic is dark minimalist (Kroszborg-school): geometric sans for body, monospace for technical accents, generous whitespace, and restrained color, with a single accent for status and links on hover.
 
 ## Why this counts as a project
 
-A portfolio that proves its claims by existing. Lighthouse scores, accessibility, fast loads, sensible build pipeline. The site itself is the smallest possible argument for engineering taste.
+It's a portfolio that proves its claims by existing. Lighthouse scores, accessibility, fast loads, a sensible build pipeline. The site itself is the smallest argument I can make for engineering taste.
