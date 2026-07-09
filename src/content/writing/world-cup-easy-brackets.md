@@ -57,6 +57,6 @@ Group finishes are a noisy signal. They tell you who topped a table of three gam
 
 Argentina got the gift. Brazil, Switzerland and Mexico got the short end. And Portugal, as usual, did it to themselves.
 
-The code, the ratings, and both graphs are [on GitHub](https://lnkd.in/gbw9awP8) if you want to poke at the weights or argue with my assumptions.
+The code, the ratings, and both graphs are [on GitHub](https://github.com/SiamRahman29/knockout-paths-elo) if you want to poke at the weights or argue with my assumptions.
 
 If you have variations you'd want to see run, tell me.
