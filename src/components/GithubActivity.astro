@@ -91,10 +91,19 @@ const DAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 const CELL = 12;
 const GAP = 3;
 const ROW_H = CELL + GAP;
+
+// SVG layout: gutters for day/month labels + overall canvas size
+const COL = CELL + GAP;
+const LEFT = 30; // left gutter for Mon/Wed/Fri labels
+const TOP = 16; // top gutter for month labels
+const gridW = LEFT + weeks.length * COL;
+const gridH = TOP + 7 * COL;
 ---
 
 {!fetchFailed && contributions.length > 0 && (
-  <section class="container-wide py-12 sm:py-16">
+  <section
+    class="container-wide py-12 sm:py-16 [content-visibility:auto] [contain-intrinsic-size:auto_360px]"
+  >
     <SectionHeading
       number="02"
       title="GitHub Activity"
