@@ -28,6 +28,45 @@ const skills = {
   Spoken: ['English', 'Bengali', 'Spanish'],
 };
 
+const education = [
+  {
+    school: 'Universiti Teknologi Malaysia',
+    url: 'https://www.utm.my',
+    kind: 'BSc',
+    degree: 'Computer Science (Software Engineering), Honors',
+    where: 'Kuala Lumpur, Malaysia',
+    highlight: "CGPA 3.93 · Dean's List, all 8 semesters",
+    notes: [
+      "Founded the university Coder's Club and led its competitive programming team to national and international wins",
+      'Ran university-wide literary events with the Ink and Literary Society',
+    ],
+  },
+  {
+    school: 'National University of Singapore',
+    url: 'https://www.nus.edu.sg',
+    kind: 'Summer',
+    degree: 'Summer Science Institute, Physics track',
+    where: 'Singapore',
+    notes: [
+      'Explored NUS research in nanotechnology and quantum computing',
+      'Participated in the presentation competition and shared my conept to transform virtual physics education in Bangladesh',
+    ],
+  },
+  {
+    school: 'Notre Dame College',
+    url: 'https://www.ndc.edu.bd',
+    kind: 'HSC',
+    degree: 'Higher Secondary School Certificate',
+    where: 'Dhaka, Bangladesh',
+    highlight: 'GPA 5.00 / 5.00',
+    notes: [
+      'Won the Honorable Mention Award',
+      'Vice-President (Publication), Notre Dame Eco and Space Club',
+      'Represented Bangladesh at JENESYS 2018 and MACFAIR International 2018',
+    ],
+  },
+];
+
 const achievements = [
   {
     title: 'Silver Medalist, ICPROM',
@@ -61,59 +100,97 @@ const achievements = [
 
     <div class="prose-custom mt-10">
       <p>
-        I'm a full-stack engineer focused on the infrastructure side of AI: RAG
-        pipelines, distributed workflows, observability, and the boring,
-        important work that turns prototypes into reliable production systems.
+        I'm a full-stack engineer working the infrastructure side of AI: RAG
+        pipelines, distributed workflows, observability, and the unglamorous
+        work that turns prototypes into systems you can trust in production.
       </p>
 
       <p>
-        Most recently, I was at <a href="https://askturing.ai" target="_blank" rel="noopener noreferrer"
-          >AskTuring.ai</a
-        >, where I led a cross-functional epic on email ingestion and retrieval in a
-        production RAG architecture. Before that, I spent six months at <a
-          href="https://grab.com"
-          target="_blank"
+        Most recently I led an email ingestion and retrieval epic in a
+        production RAG stack at <a href="https://askturing.ai" target="_blank"
+          rel="noopener noreferrer">AskTuring.ai</a
+        >. Before that, six months on <a href="https://grab.com" target="_blank"
           rel="noopener noreferrer">Grab</a
-        > on the AI Infrastructure team, supporting 100+ data scientists.
+        >'s AI Infrastructure team, supporting 100+ data scientists.
       </p>
 
       <p>
-        I grew up in Bangladesh, studied in Malaysia, and most recently worked
-        remotely for a California-based AI startup. The cross-context view of
-        how engineering teams operate, what they prioritize, and what tools
-        they actually trust, is a perspective I bring to every system I design.
+        I grew up in Bangladesh, studied in Malaysia, and shipped production
+        systems remotely for a California startup across a half-day timezone
+        gap. That taught me to own work without anyone watching: write things
+        down, lean on observability, stay reachable through the hours that
+        overlap. Remote isn't something I need accommodated. It's how I already
+        work.
       </p>
 
       <p>
-        I'm looking for what's next. AI infrastructure, backend, full-stack.
-        If you're building something interesting and hiring, I'd love to talk.
+        I'm looking for what's next: AI infrastructure, backend, or full-stack,
+        remote-first with relocation on the table for the right team. If you're
+        building something interesting, let's talk.
       </p>
+    </div>
 
-      <h2>Education</h2>
-      <p>
-        <strong>Universiti Teknologi Malaysia</strong> · Kuala Lumpur, Malaysia<br />
-        Bachelor of Computer Science (Software Engineering) with Honors
-      </p>
-      <ul>
-        <li>CGPA 3.93 · Dean's List in all 8 semesters</li>
-        <li>Founded the university Coder's Club and led its competitive programming team to national and international success</li>
-        <li>Organized university-wide literary events with the Ink and Literary Society</li>
-      </ul>
+    <div class="mt-16">
+      <h2 class="mb-6 text-lg font-semibold tracking-tight">Education</h2>
+      <div class="space-y-8">
+        {
+          education.map((e) => (
+            <div class="border-l border-[var(--color-border)] pl-5 sm:pl-6">
+              <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h3 class="text-lg font-semibold tracking-tight">
+                  <a
+                    href={e.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="decoration-[var(--color-border-strong)] decoration-1 underline-offset-4 hover:underline"
+                  >
+                    {e.school}
+                  </a>
+                </h3>
+                <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-accent)]">
+                  {e.kind}
+                </span>
+              </div>
+              <p class="mt-1 text-sm text-[var(--color-text-muted)]">{e.degree}</p>
+              <p class="mt-0.5 font-mono text-xs text-[var(--color-text-dim)]">{e.where}</p>
+              {e.highlight && (
+                <p class="mt-2 inline-block rounded border border-[var(--color-border)] bg-[var(--color-bg-elevated)] px-2 py-0.5 font-mono text-[11px] text-[var(--color-text)]">
+                  {e.highlight}
+                </p>
+              )}
+              <ul class="mt-3 space-y-1.5 text-sm text-[var(--color-text-muted)]">
+                {e.notes.map((n) => (
+                  <li class="relative pl-4 before:absolute before:left-0 before:text-[var(--color-accent-dim)] before:content-['›']">
+                    {n}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
 
-      <h2>Achievements</h2>
-      {
-        achievements.map((a) => (
-          <p>
-            <strong>{a.title}</strong> · {a.org} · {a.when}
-            {a.note && (
-              <>
-                <br />
-                <span class="text-[var(--color-text-muted)]">{a.note}</span>
-              </>
-            )}
-          </p>
-        ))
-      }
+    <div class="mt-16">
+      <h2 class="mb-6 text-lg font-semibold tracking-tight">Achievements</h2>
+      <div class="space-y-5">
+        {
+          achievements.map((a) => (
+            <div class="border-l border-[var(--color-border)] pl-5 sm:pl-6">
+              <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h3 class="font-semibold tracking-tight">{a.title}</h3>
+                <span class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-dim)]">
+                  {a.when}
+                </span>
+              </div>
+              <p class="mt-1 font-mono text-xs text-[var(--color-text-dim)]">{a.org}</p>
+              {a.note && (
+                <p class="mt-1.5 text-sm text-[var(--color-text-muted)]">{a.note}</p>
+              )}
+            </div>
+          ))
+        }
+      </div>
     </div>
 
     <div class="mt-16">
