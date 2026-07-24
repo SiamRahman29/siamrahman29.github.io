@@ -24,8 +24,6 @@ exclude = [
   '^https://github\.com/SiamRahman29/Rico/?$',
   '^https://github\.com/SiamRahman29/Top-Words-Backend/?$',
   '^https://github\.com/SiamRahman29/Top-Words-Frontend/?$',
-  '^https://github\.com/SiamRahman29/vento-backend/?$',
-  '^https://github\.com/SiamRahman29/vento-frontend/?$',
 ]
 
 # Accept these status codes as OK. Several services intermittently rate-limit.
