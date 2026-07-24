@@ -8,10 +8,6 @@ period: "Aug 2025 – Nov 2025"
 links:
   - label: "Live demo"
     href: "https://top-words-frontend-production-64d2.up.railway.app/"
-  - label: "Frontend source"
-    href: "https://github.com/SiamRahman29/Top-Words-Frontend"
-  - label: "Backend source"
-    href: "https://github.com/SiamRahman29/Top-Words-Backend"
 featured: true
 order: 6
 ogImage: "/og/top-words-home.png"
