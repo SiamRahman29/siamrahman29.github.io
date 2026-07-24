@@ -5,8 +5,11 @@ summary: "A full-stack web application centralizing curated opportunities for st
 role: "Solo build"
 tech: ["Python", "Django", "Tailwind CSS", "SQLite", "Docker", "AWS"]
 period: "Apr 2024 – Jun 2024"
+links:
+  - label: "Source"
+    href: "https://github.com/SiamRahman29/Opportunity-Alerts"
 featured: true
-order: 4
+order: 8
 ogImage: "/og/opportunity-octopus.png"
 ---
 

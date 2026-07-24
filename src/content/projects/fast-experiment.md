@@ -8,7 +8,7 @@ period: "May 2026"
 links:
   - label: "Source"
     href: "https://github.com/SiamRahman29/fast-experiment"
-order: 7
+order: 10
 ---
 
 ## The core idea

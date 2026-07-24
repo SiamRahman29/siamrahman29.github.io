@@ -9,7 +9,7 @@ links:
   - label: "Live demo"
     href: "https://top-words-frontend-production-64d2.up.railway.app/"
 featured: true
-order: 6
+order: 7
 ogImage: "/og/top-words-home.png"
 ---
 
