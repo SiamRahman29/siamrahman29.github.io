@@ -6,13 +6,14 @@ role: "Solo build"
 tech: ["Python", "FastAPI", "PostgreSQL", "React", "TypeScript", "Tailwind CSS", "Docker"]
 period: "May 2026 – Present"
 links:
-  - label: "Backend source"
-    href: "https://github.com/SiamRahman29/vento-backend"
-  - label: "Frontend source"
-    href: "https://github.com/SiamRahman29/vento-frontend"
+  - label: "Live demo"
+    href: "https://vento-frontend-o9sb.onrender.com/"
 featured: true
 order: 5
 ---
+
+> **Demo login:** `visitor@test.com` / `Password1!`
+> Forgot password / password reset is enabled — please don't be naughty with it.
 
 ## What it does
 
