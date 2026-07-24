@@ -5,9 +5,6 @@ summary: "Built the largest known dataset of news articles covering Bangladesh's
 role: "CS Researcher · BARTA Lab"
 tech: ["Python", "Web Scraping", "Stance Classification", "NLP"]
 period: "May 2025 – Present"
-links:
-  - label: "Slides (PDF)"
-    href: "https://siamrahman29.github.io/projects/july-revolution-slides.pdf"
 featured: true
 order: 4
 ogImage: "/og/default.png"
