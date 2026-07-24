@@ -67,7 +67,5 @@ Pushes to `main` trigger `.github/workflows/deploy.yml`:
       - `/public/og/grab-mlops.png`
       - `/public/og/july-revolution.png`
       - `/public/og/opportunity-octopus.png`
-      - `/public/og/writing-dramatiq-reliability.png` (when ready to publish)
-- [ ] Replace `src/content/writing/askturing-dramatiq-reliability.md` with the finished post, then set `draft: false`
 - [ ] Export July Revolution slides to PDF, save to `/public/projects/july-revolution-slides.pdf`
 - [ ] Verify all external links work (`npm run build` then visit a few)
