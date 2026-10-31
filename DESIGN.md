@@ -218,7 +218,7 @@ Featured projects on the homepage filter on `featured: true` and sort by `order`
 ### Contact mechanism
 
 - **Cal.com booking link** for "Book a 15-min intro call" CTA in the contact section.
-- mailto link to siam@graduate.utm.my as fallback.
+- mailto link to siam@k22b.space as fallback.
 - Social links: LinkedIn, GitHub, X.
 - Email obfuscation: simple JS that swaps `at` for `@` on click. Not bulletproof, but cuts most scrapers.
 
