@@ -5,7 +5,7 @@ export const SITE = {
   url: 'https://siamrahman29.github.io',
   author: 'Siam Rahman',
   defaultOgImage: '/og/default.png',
-  email: 'siam@graduate.utm.my',
+  email: 'siam@k22b.space',
   bookingUrl: 'https://cal.com/siam-rahman-29',
   socials: {
     github: 'https://github.com/SiamRahman29',
